@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyPortfolio_Asp.NetCore.DAL.Context;
 
@@ -11,9 +12,10 @@ using MyPortfolio_Asp.NetCore.DAL.Context;
 namespace MyPortfolio_Asp.NetCore.Migrations
 {
     [DbContext(typeof(MyPortfolioContext))]
-    partial class MyPortfolioContextModelSnapshot : ModelSnapshot
+    [Migration("20241110133143_mig2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
