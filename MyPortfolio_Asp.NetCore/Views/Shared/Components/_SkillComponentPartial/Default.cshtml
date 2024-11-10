@@ -1,22 +1,56 @@
 ﻿@model List<MyPortfolio_Asp.NetCore.DAL.Entities.Skill>
-@{
-    int x = 0;
-}
+
+<style>
+    .progress {
+        position: relative;
+        background-color: #e0e0e0;
+        border-radius: 10px;
+        height: 20px;
+        overflow: visible; /* Balonun dışa taşmasına izin ver */
+    }
+
+    .percent-low {
+        background-color: red;
+    }
+
+    .percent-medium {
+        background-color: yellow;
+    }
+
+    .percent-high {
+        background-color: green;
+    }
+
+    .progress-value {
+        position: absolute;
+        top: -10px;
+        right: -25px;
+        background-color: #333;
+        color: #fff;
+        font-weight: bold;
+        padding: 2px 5px;
+        border-radius: 10px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+</style>
+
 
 <div class="col-six tab-full right">
     <h3>Programlama Dilleri & Teknolojiler</h3>
 
-
     <ul class="skill-bars">
-
         @foreach (var item in Model)
         {
-            x = item.Value;
+            var progressClass = item.Value < 40 ? "percent-low" : item.Value < 70 ? "percent-medium" : "percent-high";
             <li>
-                <div class="progress percent @x"><span>@item.Value%</span></div>
+                <div class="progress @progressClass" style="width: @item.Value%">
+                    <span class="progress-value">@item.Value%</span>
+                </div>
                 <strong>@item.Title</strong>
             </li>
         }
-             
     </ul>
 </div>
+
