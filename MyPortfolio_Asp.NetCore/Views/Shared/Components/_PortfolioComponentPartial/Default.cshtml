@@ -1,266 +1,107 @@
-﻿<section id="works" class="s-works target-section">
+﻿@model List<MyPortfolio_Asp.NetCore.DAL.Entities.Portfolio>
+
+@{
+    var count = 0; // Başlangıç değeri
+}
+
+<section id="works" class="s-works target-section">
+
+    <style>
+        .masonry {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            grid-auto-rows: 150px;
+        }
+
+        /* Farklı boyutlar için CSS sınıfları */
+        .size-small {
+            grid-row: span 1;
+            grid-column: span 1;
+        }
+
+        .size-medium {
+            grid-row: span 2;
+            grid-column: span 2;
+        }
+
+        .size-large {
+            grid-row: span 3;
+            grid-column: span 3;
+        }
+
+        .item-folio {
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .item-folio__thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .shadow-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .item-folio__thumb:hover .shadow-overlay {
+            opacity: 1;
+        }
+    </style>
 
     <div class="row narrow section-intro has-bottom-sep">
         <div class="col-full">
             <h3>Portfolyo</h3>
             <h1>Son Projelerime Göz Atın</h1>
-
-            <p class="lead">Lorem ipsum Dolor adipisicing nostrud et aute Excepteur amet commodo ea dolore irure esse Duis nulla sint fugiat cillum ullamco proident aliquip quis qui voluptate dolore veniam Ut laborum non est in officia.</p>
+            <p class="lead"></p>
         </div>
     </div>
 
     <div class="row masonry-wrap">
         <div class="masonry">
 
-            <div class="masonry__brick">
-                <div class="item-folio">
+            @foreach (var item in Model)
+            {
+                // Boyut sınıfını count değerine göre belirle
+                var sizeClass = count % 3 == 0 ? "size-large" : count % 3 == 1 ? "size-medium" : "size-small";
 
+                <div class="masonry__brick @sizeClass item-folio">
                     <div class="item-folio__thumb">
-                        <a href="~/hola-master/images/portfolio/gallery/g-beetle.jpg" class="thumb-link" title="The Beetle Car" data-size="1050x700">
-                            <img src="~/hola-master/images/portfolio/beetle.jpg"
-                                 srcset="~/hola-master/images/portfolio/beetle.jpg 1x, ~/hola-master/images/portfolio/beetle@2x.jpg 2x" alt="">
+                        <a href="@item.ImageUrl" class="thumb-link" title="@item.Title" data-size="1050x700">
+                            <img src="@item.ImageUrl"
+                                 srcset="@item.ImageUrl 1x, @item.ImageUrl 2x" alt="" />
                             <span class="shadow-overlay"></span>
                         </a>
                     </div>
 
                     <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            The Beetle
-                        </h3>
-                        <p class="item-folio__cat">
-                            Web Development
-                        </p>
+                        <h3 class="item-folio__title">@item.Title</h3>
+                        <p class="item-folio__cat">@item.SubTitle</p>
                     </div>
 
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                    <a href="@item.Url" class="item-folio__project-link" title="Project link">
                         <i class="im im-link"></i>
                     </a>
 
                     <div class="item-folio__caption">
-                        <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                        <p>@item.Description</p>
                     </div>
+                </div>
 
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-            <div class="masonry__brick">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="images/portfolio/gallery/g-lighthouse.jpg" class="thumb-link" title="Lighthouse" data-size="1050x700">
-                            <img src="images/portfolio/lighthouse.jpg"
-                                 srcset="images/portfolio/lighthouse.jpg 1x, images/portfolio/lighthouse@2x.jpg 2x" alt="">
-                            <span class="shadow-overlay"></span>
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Lighthouse
-                        </h3>
-                        <p class="item-folio__cat">
-                            Web Design
-                        </p>
-                    </div>
-
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        <i class="im im-link"></i>
-                    </a>
-
-                    <div class="item-folio__caption">
-                        <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                    </div>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-            <div class="masonry__brick">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="images/portfolio/gallery/g-salad.jpg" class="thumb-link" data-size="1050x700">
-                            <img src="images/portfolio/salad.jpg"
-                                 srcset="images/portfolio/salad.jpg 1x, images/portfolio/salad@2x.jpg 2x" alt="">
-                            <span class="shadow-overlay"></span>
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Salad
-                        </h3>
-                        <p class="item-folio__cat">
-                            Branding
-                        </p>
-                    </div>
-
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        <i class="im im-link"></i>
-                    </a>
-
-                    <span class="item-folio__caption">
-                        <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                    </span>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-            <div class="masonry__brick">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="images/portfolio/gallery/g-woodcraft.jpg" class="thumb-link" data-size="1050x700">
-                            <img src="images/portfolio/woodcraft.jpg"
-                                 srcset="images/portfolio/woodcraft.jpg 1x, images/portfolio/woodcraft@2x.jpg 2x" alt="">
-                            <span class="shadow-overlay"></span>
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Woodcraft
-                        </h3>
-                        <p class="item-folio__cat">
-                            Branding
-                        </p>
-                    </div>
-
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        <i class="im im-link"></i>
-                    </a>
-
-                    <span class="item-folio__caption">
-                        <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                    </span>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-            <div class="masonry__brick">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="images/portfolio/gallery/g-skaterboy.jpg" class="thumb-link" data-size="1050x700">
-                            <img src="images/portfolio/skaterboy.jpg"
-                                 srcset="images/portfolio/skaterboy.jpg 1x, images/portfolio/skaterboy@2x.jpg 2x" alt="">
-                            <span class="shadow-overlay"></span>
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Skaterboy
-                        </h3>
-                        <p class="item-folio__cat">
-                            Web Development
-                        </p>
-                    </div>
-
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        <i class="im im-link"></i>
-                    </a>
-
-                    <span class="item-folio__caption">
-                        <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                    </span>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-            <div class="masonry__brick">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="~/hola-master/images/portfolio/gallery/g-liberty.jpg" class="thumb-link" data-size="1050x700">
-                            <img src="images/portfolio/liberty.jpg"
-                                 srcset="images/portfolio/liberty.jpg 1x, images/portfolio/liberty@2x.jpg 2x" alt="">
-                            <span class="shadow-overlay"></span>
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Liberty
-                        </h3>
-                        <p class="item-folio__cat">
-                            Branding
-                        </p>
-                    </div>
-
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        <i class="im im-link"></i>
-                    </a>
-
-                    <span class="item-folio__caption">
-                        <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                    </span>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-            <div class="masonry__brick">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="images/portfolio/gallery/g-minimalismo.jpg" class="thumb-link" data-size="1050x700">
-                            <img src="~/hola-master/images/portfolio/minimalismo.jpg"
-                                 srcset="images/portfolio/minimalismo.jpg 1x, images/portfolio/minimalismo@2x.jpg 2x" alt="">
-                            <span class="shadow-overlay"></span>
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Minimalismo
-                        </h3>
-                        <p class="item-folio__cat">
-                            Web Design
-                        </p>
-                    </div>
-
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        <i class="im im-link"></i>
-                    </a>
-
-                    <span class="item-folio__caption">
-                        <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                    </span>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-            <div class="masonry__brick">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="~/hola-master/images/portfolio/gallery/g-shutterbug.jpg" class="thumb-link" data-size="1050x700">
-                            <img src="~/hola-master/images/portfolio/shutterbug.jpg"
-                                 srcset="~/hola-master/images/portfolio/shutterbug.jpg 1x, images/portfolio/shutterbug@2x.jpg 2x" alt="">
-                            <span class="shadow-overlay"></span>
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Lady Shutterbug
-                        </h3>
-                        <p class="item-folio__cat">
-                            Branding
-                        </p>
-                    </div>
-
-                    <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        <i class="im im-link"></i>
-                    </a>
-
-                    <span class="item-folio__caption">
-                        <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                    </span>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
+                @* count değişkenini artır *@
+                count++;
+                  <!-- Burada count değeri artırılıyor -->
+            }
         </div>
-    </div> <!-- end masonry -->
+    </div>
 
-</section> 
+</section>
