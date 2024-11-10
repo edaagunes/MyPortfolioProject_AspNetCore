@@ -1,0 +1,74 @@
+﻿@model List<About>
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Layout/Index.cshtml";
+}
+
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Hakkımda Yazıları</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Hakkımda Listesi</div>
+					</div>
+					<div class="card-body">
+
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Başlık</th>
+									<th scope="col">Alt Başlık</th>
+									<th scope="col">Açıklama</th>
+									<th scope="col">Durum</th>
+									<th scope="col"></th>
+									<th scope="col">Güncelle</th>
+								</tr>
+							</thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.AboutId</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.SubDescription.Substring(0, 1)</td>
+                                        <td>@item.Details.Substring(0, 10)</td>
+                                        <td>
+                                            <!-- Durum Kontrolü -->
+                                            @if (item.Status)
+                                            {
+                                                <span class="badge badge-success">Aktif</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-secondary">Pasif</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <!-- Aktif Butonu -->
+                                            <form action="/About/Index" method="post">
+                                                <input type="hidden" name="id" value="@item.AboutId" />
+                                                @if (!item.Status)
+                                                {
+                                                    <button type="submit" class="btn btn-outline-warning">
+                                                        Aktif Yap
+                                                    </button>
+                                                }
+                                            </form>
+                                        </td>
+                                        <td><a href="/About/UpdateAbout/@item.AboutId" class="btn btn-success">Güncelle</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+							</table>
+							<a href="/About/CreateAbout" class="btn btn-primary">Yeni Deneyim Girişi</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
